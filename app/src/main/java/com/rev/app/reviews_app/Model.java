@@ -6,6 +6,29 @@ package com.rev.app.reviews_app;
 
 public class Model {
 
+
+    private String SearchFieldName;
+    private String UPC;
+    private String ProductName;
+    private String Price;
+
+    public String getSearchFieldName() {
+        return SearchFieldName;
+    }
+
+    public void setSearchFieldName(String searchFieldName) {
+        SearchFieldName = searchFieldName;
+    }
+
+    public String getPrice() {
+        return Price;
+    }
+
+    public void setPrice(String price) {
+        Price = price;
+    }
+
+
     public String getUPC() {
         return UPC;
     }
@@ -14,18 +37,22 @@ public class Model {
         this.UPC = UPC;
     }
 
-    private String UPC;
 
     public String getData() {
-        return data;
+        return SearchFieldName;
     }
 
     public void setData(String data) {
-        this.data = data;
+        this.SearchFieldName = data;
     }
 
-    private String data;
 
 
+    public String getProductName() {
+        return ProductName;
+    }
 
+    public void setProductName(String productName) {
+        ProductName = productName;
+    }
 }

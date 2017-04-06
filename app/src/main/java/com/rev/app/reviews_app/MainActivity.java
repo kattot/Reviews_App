@@ -14,10 +14,12 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.VolleyLog;
+import com.android.volley.toolbox.JsonArrayRequest;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -49,9 +51,200 @@ public class MainActivity extends AppCompatActivity {
         String data = "";
 
 
-
-        String url = "http://api.walmartlabs.com/v1/reviews/12417832?format=json&apiKey=x8cww2sgbv3ekax7d6n7tanq";
 /*
+        String url = "http://api.walmartlabs.com/v1/reviews/12417832?format=json&apiKey=x8cww2sgbv3ekax7d6n7tanq";
+
+            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                    url, null, new Response.Listener<JSONObject>() {
+
+
+                @Override
+                public void onResponse(JSONObject response) {
+                    Log.d(TAG, response.toString());
+
+                    try {
+                        String jsonResponse;
+                        // Parsing json object response
+                        // response will be a json object
+                        String name = response.getString("name");
+                        String email = response.getString("upc");
+                        //JSONObject phone = response.getJSONObject("brandName");
+                        String home = response.getString("brandName");
+                        //String mobile = phone.getString("mobile");
+
+                        jsonResponse = "";
+                        jsonResponse += "upc: " + name;
+                        jsonResponse += "Email: " + email;
+                        jsonResponse += "Home: " + home;
+                        //jsonResponse += "Mobile: " + mobile + "\n\n";
+
+                        tv.setText(jsonResponse);
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        Toast.makeText(getApplicationContext(),
+                                "Error: " + e.getMessage(),
+                                Toast.LENGTH_LONG).show();
+                    }
+                    //hidepDialog();
+                }
+            }, new Response.ErrorListener() {
+
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    VolleyLog.d(TAG, "Error: " + error.getMessage());
+                    Toast.makeText(getApplicationContext(),
+                            error.getMessage(), Toast.LENGTH_SHORT).show();
+                    // hide the progress dialog
+                   // hidepDialog();
+                }
+            });
+
+            // Adding request to request queue
+            //
+        // AppController.getInstance().addToRequestQueue(jsonObjReq);
+        Volley.newRequestQueue(this).add(jsonObjReq);
+
+*/
+
+
+
+
+
+
+
+
+
+        String url = "http://api.walmartlabs.com/v1/search?apiKey=x8cww2sgbv3ekax7d6n7tanq&query=ipod";
+/*
+        JsonArrayRequest req = new JsonArrayRequest(url,
+                new Response.Listener<JSONArray>() {
+                    @Override
+                    public void onResponse(JSONArray response) {
+                        Log.d(TAG, response.toString());
+
+                        try {
+                            String jsonResponse;
+                            // Parsing json array response
+                            // loop through each json object
+                            jsonResponse = "";
+                          //  for (int i = 0; i < response.length(); i++) {
+
+                                JSONObject person = (JSONObject) response
+                                        .get(0);
+
+                                JSONObject items = person.getJSONObject("items");
+                                String name = items.getString("name");
+                                String upc = items.getString("upc");
+                                String image = items.getString("mediumImage");
+                                String price = items.getString("salePrice");
+
+                                jsonResponse += "Name: " + name;
+                                jsonResponse += "UPC: " + upc;
+                                jsonResponse += "image: " + image;
+                                jsonResponse += "Price: " + price;
+
+//                            }
+
+                            tv.setText(jsonResponse);
+
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                            Toast.makeText(getApplicationContext(),
+                                    "Error: " + e.getMessage(),
+                                    Toast.LENGTH_LONG).show();
+                        }
+
+                      //  hidepDialog();
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+           //     hidepDialog();
+            }
+        });
+
+        // Adding request to request queue
+        Volley.newRequestQueue(this).add(req);
+
+*/
+
+
+
+
+
+
+
+
+
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                url, null, new Response.Listener<JSONObject>() {
+
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, response.toString());
+
+                try {
+                    String jsonResponse;
+                    // Parsing json object response
+                    // response will be a json object
+                         JSONArray ii = response
+                                        .getJSONArray("items");
+
+                        JSONObject items = (JSONObject) ii.get(0);
+
+                             //   JSONObject items = response.getJSONObject("items");
+                                String name = items.getString("name");
+                                String upc = items.getString("upc");
+                                String image = items.getString("mediumImage");
+                                String price = items.getString("salePrice");
+
+                                jsonResponse = "";
+                                jsonResponse += "Name: " + name;
+                                jsonResponse += "UPC: " + upc;
+                                jsonResponse += "image: " + image;
+                                jsonResponse += "Price: " + price;
+
+//                            }
+
+                            tv.setText(jsonResponse);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),
+                            "Error: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }
+                //hidepDialog();
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+                // hide the progress dialog
+                // hidepDialog();
+            }
+        });
+
+        // Adding request to request queue
+        //
+        // AppController.getInstance().addToRequestQueue(jsonObjReq);
+        Volley.newRequestQueue(this).add(jsonObjReq);
+
+
+
+
+
+
+        /*
 // Request a string response
         StringRequest stringRequest = new StringRequest(Request.Method.GET, url,
                 new Response.Listener<String>() {
@@ -118,59 +311,8 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-            //showpDialog();
-            //String ur = "http://api.walmartlabs.com/v1/reviews/12417832?format=json&apiKey=x8cww2sgbv3ekax7d6n7tanq";
-
-            JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                    url, null, new Response.Listener<JSONObject>() {
-
-
-                @Override
-                public void onResponse(JSONObject response) {
-                    Log.d(TAG, response.toString());
-
-                    try {
-                        String jsonResponse;
-                        // Parsing json object response
-                        // response will be a json object
-                        String name = response.getString("name");
-                        String email = response.getString("upc");
-                        //JSONObject phone = response.getJSONObject("brandName");
-                        String home = response.getString("brandName");
-                        //String mobile = phone.getString("mobile");
-
-                        jsonResponse = "";
-                        jsonResponse += "upc: " + name;
-                        jsonResponse += "Email: " + email;
-                        jsonResponse += "Home: " + home;
-                        //jsonResponse += "Mobile: " + mobile + "\n\n";
-
-                        tv.setText(jsonResponse);
-
-                    } catch (JSONException e) {
-                        e.printStackTrace();
-                        Toast.makeText(getApplicationContext(),
-                                "Error: " + e.getMessage(),
-                                Toast.LENGTH_LONG).show();
-                    }
-                    //hidepDialog();
-                }
-            }, new Response.ErrorListener() {
-
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    VolleyLog.d(TAG, "Error: " + error.getMessage());
-                    Toast.makeText(getApplicationContext(),
-                            error.getMessage(), Toast.LENGTH_SHORT).show();
-                    // hide the progress dialog
-                   // hidepDialog();
-                }
-            });
-
-            // Adding request to request queue
-            //
-        // AppController.getInstance().addToRequestQueue(jsonObjReq);
-        Volley.newRequestQueue(this).add(jsonObjReq);
+        //showpDialog();
+        //String ur = "http://api.walmartlabs.com/v1/reviews/12417832?format=json&apiKey=x8cww2sgbv3ekax7d6n7tanq";
 
 
 
@@ -179,7 +321,11 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-     //   tv.setText(pull.pullRequest());
+
+
+
+
+        //   tv.setText(pull.pullRequest());
 
 
 /*

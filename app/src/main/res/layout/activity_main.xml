@@ -8,26 +8,36 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enter Product Name"
-        android:id="@+id/textViewProductName"
-        />
+        android:id="@+id/textViewProductName"/>
 
     <EditText
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/editTextProductName"/>
+        android:id="@+id/editTextProductName"
+        android:hint="Enter Product Name"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Search Product"
+        android:id="@+id/buttonSearchProduct"/>
+
 
     <Button
         android:id="@+id/buttonBarcode"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Scan Barcode"
-        />
+        android:text="Scan Barcode"/>
 
     <Button
         android:id="@+id/buttonVoice"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Voice Search"
-        />
+        android:text="Voice Search"/>
+
+
+
+
+
 
 </LinearLayout>

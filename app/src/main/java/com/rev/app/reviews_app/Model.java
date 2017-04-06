@@ -1,16 +1,40 @@
 package com.rev.app.reviews_app;
 
+import java.io.Serializable;
+
 /**
  * Created by katto on 4/4/2017.
  */
 
-public class Model {
+public class Model implements Serializable {
 
 
     private String SearchFieldName;
     private String UPC;
     private String ProductName;
     private String Price;
+    private String imageSrc;
+    private int itemId;
+
+    public int getItemId() {
+        return itemId;
+    }
+
+    public void setItemId(int itemId) {
+        this.itemId = itemId;
+    }
+
+
+
+    public String getImageSrc() {
+        return imageSrc;
+    }
+
+    public void setImageSrc(String imageSrc) {
+        this.imageSrc = imageSrc;
+    }
+
+
 
     public String getSearchFieldName() {
         return SearchFieldName;

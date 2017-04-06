@@ -1,6 +1,7 @@
 package com.rev.app.reviews_app;
 //package com.android.volley.toolbox;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -45,10 +46,109 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         EditText editText = (EditText) findViewById(R.id.editTextProductName);
         final TextView tv = (TextView) findViewById(R.id.textViewProductName);
+        Button buttonSearch = (Button) findViewById(R.id.buttonSearchProduct);
         Button buttonBarcode = (Button)findViewById(R.id.buttonBarcode);
         Button buttonVoice = (Button) findViewById(R.id.buttonVoice);
-        Model m = new Model();
-        String data = "";
+        final Model m = new Model();
+        final String data = editText.getText().toString();
+
+
+
+        String url = "http://api.walmartlabs.com/v1/search?apiKey=x8cww2sgbv3ekax7d6n7tanq&query=ipod";
+
+        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
+                url, null, new Response.Listener<JSONObject>() {
+
+
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d(TAG, response.toString());
+
+                try {
+                    String jsonResponse;
+                    // Parsing json object response
+                    // response will be a json object
+                    JSONArray ii = response
+                            .getJSONArray("items");
+
+                    JSONObject items = (JSONObject) ii.get(0);
+
+                    //   JSONObject items = response.getJSONObject("items");
+                    String name = items.getString("name");
+                    String upc = items.getString("upc");
+                    String image = items.getString("mediumImage");
+                    String price = items.getString("salePrice");
+                    int productID = items.getInt("ItemId");
+                    m.setItemId(productID);
+
+                    jsonResponse = "";
+                    jsonResponse += "Name: " + name;
+                    m.setProductName(name);
+                    jsonResponse += "UPC: " + upc;
+                    m.setUPC(upc);
+                    jsonResponse += "image: " + image;
+                    m.setImageSrc(image);
+                    jsonResponse += "Price: " + price;
+                    m.setPrice(price);
+
+//                            }
+
+                    tv.setText(jsonResponse);
+
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                    Toast.makeText(getApplicationContext(),
+                            "Error: " + e.getMessage(),
+                            Toast.LENGTH_LONG).show();
+                }
+                //hidepDialog();
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                VolleyLog.d(TAG, "Error: " + error.getMessage());
+                Toast.makeText(getApplicationContext(),
+                        error.getMessage(), Toast.LENGTH_SHORT).show();
+                // hide the progress dialog
+                // hidepDialog();
+            }
+        });
+
+        // Adding request to request queue
+        //
+        // AppController.getInstance().addToRequestQueue(jsonObjReq);
+        Volley.newRequestQueue(MainActivity.this).add(jsonObjReq);
+
+
+
+
+
+
+
+
+
+
+
+
+
+        buttonSearch.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+
+
+
+
+                Intent i = new Intent(MainActivity.this,ProductInfo.class);
+                i.putExtra("Model",m);
+                startActivity(i);
+
+
+            }
+        });
+
+
 
 
 /*
@@ -115,7 +215,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        String url = "http://api.walmartlabs.com/v1/search?apiKey=x8cww2sgbv3ekax7d6n7tanq&query=ipod";
 /*
         JsonArrayRequest req = new JsonArrayRequest(url,
                 new Response.Listener<JSONArray>() {
@@ -179,65 +278,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
-
-        JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
-                url, null, new Response.Listener<JSONObject>() {
-
-
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d(TAG, response.toString());
-
-                try {
-                    String jsonResponse;
-                    // Parsing json object response
-                    // response will be a json object
-                         JSONArray ii = response
-                                        .getJSONArray("items");
-
-                        JSONObject items = (JSONObject) ii.get(0);
-
-                             //   JSONObject items = response.getJSONObject("items");
-                                String name = items.getString("name");
-                                String upc = items.getString("upc");
-                                String image = items.getString("mediumImage");
-                                String price = items.getString("salePrice");
-
-                                jsonResponse = "";
-                                jsonResponse += "Name: " + name;
-                                jsonResponse += "UPC: " + upc;
-                                jsonResponse += "image: " + image;
-                                jsonResponse += "Price: " + price;
-
-//                            }
-
-                            tv.setText(jsonResponse);
-
-                } catch (JSONException e) {
-                    e.printStackTrace();
-                    Toast.makeText(getApplicationContext(),
-                            "Error: " + e.getMessage(),
-                            Toast.LENGTH_LONG).show();
-                }
-                //hidepDialog();
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                VolleyLog.d(TAG, "Error: " + error.getMessage());
-                Toast.makeText(getApplicationContext(),
-                        error.getMessage(), Toast.LENGTH_SHORT).show();
-                // hide the progress dialog
-                // hidepDialog();
-            }
-        });
-
-        // Adding request to request queue
-        //
-        // AppController.getInstance().addToRequestQueue(jsonObjReq);
-        Volley.newRequestQueue(this).add(jsonObjReq);
 
 
 
@@ -430,12 +470,6 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-        buttonBarcode.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
 
 
 
@@ -671,7 +705,7 @@ public class MainActivity extends AppCompatActivity {
 
 
 
-
+/*
 
     public String request(){
 
@@ -735,7 +769,7 @@ public class MainActivity extends AppCompatActivity {
         return forecastJsonStr;
     }
 
-
+*/
 
 
 

@@ -44,16 +44,16 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         PullAPICon pull = new PullAPICon();
         setContentView(R.layout.activity_main);
-        EditText editText = (EditText) findViewById(R.id.editTextProductName);
+        final EditText editText = (EditText) findViewById(R.id.editTextProductName);
         final TextView tv = (TextView) findViewById(R.id.textViewProductName);
         Button buttonSearch = (Button) findViewById(R.id.buttonSearchProduct);
         Button buttonBarcode = (Button)findViewById(R.id.buttonBarcode);
         Button buttonVoice = (Button) findViewById(R.id.buttonVoice);
         final Model m = new Model();
-        final String data = editText.getText().toString();
+        //final String data = editText.getText().toString();
 
-
-
+        final String[] productName = new String[1];
+/*
         String url = "http://api.walmartlabs.com/v1/search?apiKey=x8cww2sgbv3ekax7d6n7tanq&query=ipod";
 
         JsonObjectRequest jsonObjReq = new JsonObjectRequest(Request.Method.GET,
@@ -78,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
                     String upc = items.getString("upc");
                     String image = items.getString("mediumImage");
                     String price = items.getString("salePrice");
-                    int productID = items.getInt("ItemId");
+                    int productID = items.getInt("itemId");
                     m.setItemId(productID);
 
                     jsonResponse = "";
@@ -121,7 +121,7 @@ public class MainActivity extends AppCompatActivity {
         Volley.newRequestQueue(MainActivity.this).add(jsonObjReq);
 
 
-
+*/
 
 
 
@@ -136,12 +136,13 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
+               // productName[0] = editText.getText().toString();
+               // m.setProductName(productName[0]);
 
 
 
                 Intent i = new Intent(MainActivity.this,ProductInfo.class);
-                i.putExtra("Model",m);
+                i.putExtra("prodName", editText.getText().toString());
                 startActivity(i);
 
 

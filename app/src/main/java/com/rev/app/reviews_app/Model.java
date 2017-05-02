@@ -14,13 +14,67 @@ public class Model implements Serializable {
     private String ProductName;
     private String Price;
     private String imageSrc;
-    private int itemId;
+    private String itemId;
+    private int upvotes, downvotes, stars;
+    private String reviewer_Name;
+    private String review;
 
-    public int getItemId() {
+    public int getUpvotes() {
+        return upvotes;
+    }
+
+    public void setUpvotes(int upvotes) {
+        this.upvotes = upvotes;
+    }
+
+    public int getDownvotes() {
+        return downvotes;
+    }
+
+    public void setDownvotes(int downvotes) {
+        this.downvotes = downvotes;
+    }
+
+    public int getStars() {
+        return stars;
+    }
+
+    public void setStars(int stars) {
+        this.stars = stars;
+    }
+
+    public String getReviewer_Name() {
+        return reviewer_Name;
+    }
+
+    public void setReviewer_Name(String reviewer_Name) {
+        this.reviewer_Name = reviewer_Name;
+    }
+
+    public String getReview() {
+        return review;
+    }
+
+    public void setReview(String review) {
+        this.review = review;
+    }
+
+    public String getTitle() {
+        return title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
+    }
+
+    private String title;
+
+
+    public String getItemId() {
         return itemId;
     }
 
-    public void setItemId(int itemId) {
+    public void setItemId(String itemId) {
         this.itemId = itemId;
     }
 

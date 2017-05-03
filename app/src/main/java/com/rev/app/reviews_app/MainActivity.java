@@ -60,6 +60,46 @@ public class MainActivity extends AppCompatActivity
                 .addSubMenu(Color.parseColor("#FF4B32"), R.mipmap.icon_notify)
                 .addSubMenu(Color.parseColor("#8A39FF"), R.mipmap.icon_setting)
                 .addSubMenu(Color.parseColor("#FF6A00"), R.mipmap.icon_gps);
+
+        circleMenu.setOnMenuSelectedListener(new OnMenuSelectedListener() {
+
+                                                 @Override
+                                                 public void onMenuSelected(int index) {
+                                                     switch (index) {
+                                                         case 0:
+                                                             Toast.makeText(MainActivity.this, "Home Button Clicked", Toast.LENGTH_SHORT).show();
+
+                                                             break;
+                                                         case 1:
+                                                             Toast.makeText(MainActivity.this, "Search button Clicked", Toast.LENGTH_SHORT).show();
+                                                             break;
+                                                         case 2:
+                                                             Toast.makeText(MainActivity.this, "Notify button Clciked", Toast.LENGTH_SHORT).show();
+                                                             break;
+                                                         case 3:
+                                                             Toast.makeText(MainActivity.this, "Settings button Clcked", Toast.LENGTH_SHORT).show();
+                                                             break;
+                                                         case 4:
+                                                             Toast.makeText(MainActivity.this, "GPS button Clicked", Toast.LENGTH_SHORT).show();
+                                                             break;
+                                                     }
+                                                 }
+                                             }
+
+        );
+        circleMenu.setOnMenuStatusChangeListener(new OnMenuStatusChangeListener() {
+
+                                                     @Override
+                                                     public void onMenuOpened() {
+                                                         Toast.makeText(MainActivity.this, "Menu Opened", Toast.LENGTH_SHORT).show();
+                                                     }
+
+                                                     @Override
+                                                     public void onMenuClosed() {
+                                                         Toast.makeText(MainActivity.this, "Menu Closed", Toast.LENGTH_SHORT).show();
+                                                     }
+                                                 }
+        );
     }
     public void substitute(View view){
         Intent i = new Intent(this, signin.class);
